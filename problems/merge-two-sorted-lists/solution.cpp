@@ -13,6 +13,28 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-
+        ListNode head;
+        ListNode* curr = &head;
+        while (list1 != nullptr && list2 != nullptr) {
+            if (list1->val > list2->val) {
+                curr->next = new ListNode(list2->val);
+                list2 = list2->next;
+            } else {
+                curr->next = new ListNode(list1->val);
+                list1 = list1->next;
+            }
+            curr = curr->next;
+        }
+        while (list2 != nullptr) {
+            curr->next = new ListNode(list2->val);
+            curr = curr->next;
+            list2 = list2->next;
+        }
+        while (list1 != nullptr) {
+            curr->next = new ListNode(list1->val);
+            curr = curr->next;
+            list1 = list1->next;
+        }
+        return head.next;
     }
 };
