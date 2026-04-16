@@ -11,5 +11,13 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
+        vector<ListNode*> visited;
+        while (head) {
+            visited.push_back(head);
+            if (find(visited.begin(), visited.end(), head->next) != visited.end())
+                return true;
+            head = head->next;
+        }
+        return false;
     }
 };
