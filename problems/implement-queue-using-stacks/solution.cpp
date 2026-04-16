@@ -6,16 +6,33 @@ public:
     }
 
     void push(int x) {
+        while(!main.empty()) {
+            temp.push(main.top());
+            main.pop();
+        }
+        main.push(x);
+        while(!temp.empty()) {
+            main.push(temp.top());
+            temp.pop();
+        }
     }
 
     int pop() {
+        const int x = main.top();
+        main.pop();
+        return x;
     }
 
     int peek() {
+        return main.top();
     }
 
     bool empty() {
+        return main.empty();
     }
+private:
+   stack<int> main;
+   stack<int> temp;
 };
 
 /**
