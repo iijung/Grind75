@@ -12,6 +12,7 @@
  */
 class Solution {
 public:
+#if 0
     ListNode* reverseList(ListNode* head) {
         if (head == nullptr || head->next == nullptr)
             return head;
@@ -20,4 +21,17 @@ public:
         head->next = nullptr;
         return rtn;
     }
+#else
+    ListNode* reverseList(ListNode* head) {
+        ListNode *new_head = nullptr;
+        ListNode *curr = head;
+        while (curr) {
+            ListNode *const next = curr->next;
+            curr->next = new_head;
+            new_head = curr;
+            curr = next;
+        }
+        return new_head;
+    }
+#endif
 };
