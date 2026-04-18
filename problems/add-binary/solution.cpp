@@ -13,10 +13,11 @@ public:
                 carry += a[a.length() - 1 - i] - '0';
             if (i < b.length())
                 carry += b[b.length() - 1 - i] - '0';
-            result = (carry & 1? "1" : "0") + result;
+            result.push_back(carry & 1? '1' : '0');
             carry /= 2;
             ++i;
         }
+        reverse(result.begin(), result.end());
         return result;
     }
 };
