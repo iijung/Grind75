@@ -14,5 +14,21 @@
 class Solution {
 public:
     int diameterOfBinaryTree(TreeNode* root) {
+        if (root == nullptr)
+            return 0;
+        max_diameter = 0;
+        get_length(root);
+        return max_diameter;
+    }
+private:
+    int max_diameter = 0;
+
+    int get_length(TreeNode* node) {
+        if (node == nullptr)
+            return 0;
+        const int left = get_length(node->left);
+        const int right = get_length(node->right);
+        max_diameter = max(max_diameter, left + right);
+        return 1 + max(left, right);
     }
 };
