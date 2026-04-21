@@ -13,5 +13,15 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) {
+            return head;
+        }
+        const ListNode *middle = head;
+        const ListNode *tail = head;
+        while (tail && tail->next) {
+            middle = middle->next;
+            tail = tail->next->next;
+        }
+        return middle;
     }
 };
