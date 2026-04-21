@@ -3,31 +3,27 @@
 class Solution {
 public:
     int romanToInt(string s) {
-        unordered_map<char, int> roman = {
-            {'I', 1},
-            {'V', 5},
-            {'X', 10},
-            {'L', 50},
-            {'C', 100},
-            {'D', 500},
-            {'M', 1000}
-        };
         int integer = 0;
         for (int i = 0; i < s.length(); ++i) {
-            const std::string sub = s.substr(i, 2);
-            if (sub == "IV"     // 4
-                || sub == "IX"  // 9
-                || sub == "XL"  // 40
-                || sub == "XC"  // 90
-                || sub == "CD"  // 400
-                || sub == "CM"  // 900
-            ) {
-                integer += roman[s[i + 1]] - roman[s[i]];
-                ++i;
+            if (roman(s[i]) < roman(s[i + 1])) {
+                integer -= roman(s[i]);
             } else {
-                integer += roman[s[i]];
+                integer += roman(s[i]);
             }
         }
         return integer;
+    }
+private:
+    int roman(char c) {
+        switch (c) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+        }
+        return 0;
     }
 };
