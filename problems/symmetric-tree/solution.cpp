@@ -32,4 +32,28 @@ private:
             return false;
         return true;
     }
+    bool bfs(TreeNode* root) {
+        if (root == nullptr)
+            return true;
+        queue<TreeNode*> q;
+        q.push(root->left);
+        q.push(root->right);
+        while (!q.empty()) {
+            const TreeNode* const left = q.front();
+            q.pop();
+            const TreeNode* const right = q.front();
+            q.pop();
+            if (left == nullptr && right == nullptr)
+                continue;
+            if (left == nullptr || right == nullptr)
+                return false;
+            if (left->val != right->val)
+                return false;
+            q.push(left->left);
+            q.push(right->right);
+            q.push(left->right);
+            q.push(right->left);
+        }
+        return true;
+    }
 };
