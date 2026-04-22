@@ -3,5 +3,15 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
+        int max = nums[0];
+        int sum = 0;
+        for (const int& num: nums) {
+            if (sum < 0)
+                sum = 0;
+            sum += num;
+            if (max < sum)
+                max = sum;
+        }
+        return max;
     }
 };
