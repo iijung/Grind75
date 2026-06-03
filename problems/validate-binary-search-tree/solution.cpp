@@ -14,5 +14,15 @@
 class Solution {
 public:
     bool isValidBST(TreeNode* root) {
+        return isValid(root, LONG_MIN, LONG_MAX);
+    }
+
+private:
+    bool isValid(TreeNode* root, long min, long max) {
+        if (root == nullptr)
+            return true;
+        if (root->val <= min || root->val >= max)
+            return false;
+        return isValid(root->left, min, root->val) && isValid(root->right, root->val, max);
     }
 };
