@@ -3,26 +3,30 @@
 class Trie {
 public:
     bool can_end;
-    unordered_map<char, Trie*> children;
+    Trie* children[26];
 
     Trie() {
         can_end = false;
+        for (auto& child: children)
+            child = nullptr;
     }
 
     void insert(string word) {
         Trie* curr = this;
         for (const char& c: word) {
-            if (curr->children[c] == nullptr)
-                curr->children[c] = new Trie();
-            curr = curr->children[c];
+            const size_t idx = c - 'a';
+            if (curr->children[idx] == nullptr)
+                curr->children[idx] = new Trie();
+            curr = curr->children[idx];
         }
         curr->can_end = true;
     }
 
     bool search(string word) {
-        Trie* const curr = this;
+        Trie* curr = this;
         for (const char& c: word) {
-            curr = curr->children[c];
+            const size_t idx = c - 'a';
+            curr = curr->children[idx];
             if (curr == nullptr)
                 return false;
         }
@@ -30,9 +34,10 @@ public:
     }
 
     bool startsWith(string prefix) {
-        Trie* const curr = this;
+        Trie* curr = this;
         for (const char& c: prefix) {
-            curr = curr->children[c];
+            const size_t idx = c - 'a';
+            curr = curr->children[idx];
             if (curr == nullptr)
                 return false;
         }
