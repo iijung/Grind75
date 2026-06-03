@@ -34,4 +34,31 @@ public:
         }
         return count;
     }
+
+    int bfs(vector<vector<bool>> visited, vector<vector<char>>& grid) {
+        int count = 0;
+        for (size_t row = 0; row < grid.size(); row++) {
+            for (size_t col = 0; col < grid[row].size(); col++) {
+                if (visited[row][col] || grid[row][col] == WATER)
+                    continue;
+                count++;
+                queue<pair<int, int>> q;
+                q.push({row, col});
+                while (!q.empty()) {
+                    auto [r, c] = q.front();
+                    q.pop();
+                    if (r < 0 || r >= grid.size() || c < 0 || c >= grid[r].size())
+                        continue;
+                    if (visited[r][c] || grid[r][c] == WATER)
+                        continue;
+                    visited[r][c] = true;
+                    q.push({r - 1, c});
+                    q.push({r + 1, c});
+                    q.push({r, c - 1});
+                    q.push({r, c + 1});
+                }
+            }
+        }
+        return count;
+    }
 };
